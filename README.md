@@ -8,7 +8,7 @@ This project can be build like any other Cmake project from the root directory
 
 ## Linking
 
-Building will create a dynamic library and install to /usr/local/lib as well as make the protocol's public headers available in /usr/local/include. You can use protocol functions by including with #include <mechatronics_usb_prototocl/mech_usb_protocol.h>
+Building will create a dynamic library and install to /usr/local/lib as well as make the protocol's public headers available in /usr/local/include. You can use protocol functions by including with #include <mechatronics_usb_protocol/mech_usb_protocol.h>
 
 ## Getting Started
 
