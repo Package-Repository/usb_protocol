@@ -30,24 +30,21 @@ Building will create a dynamic library and install to /usr/local/lib as well as 
         src/protocol/util
     )
 
-    file(GLOB USB_PROTOCOL_SOURCES 
+    set(USB_PROTOCOL_SOURCES 
         src/protocol/src/parser/usb_parse.c
         src/protocol/src/parser/usb_flags.c
-        src/protocol/src/subtopics/system.c
-        src/protocol/src/subtopics/power.c
-        src/protocol/src/subtopics/motor.c
         src/protocol/src/actions/usb_actions.c
     )
 
-    file(GLOB USB_PROTOCOL_HEADERS 
+    set(USB_PROTOCOL_HEADERS 
         src/protocol/include/mech_usb_protocol.h
         src/protocol/include/parser/usb_parse.h
         src/protocol/include/parser/usb_flags.h
         src/protocol/include/parser/msg_types.h
+        src/protocol/include/actions/usb_actions.h
         src/protocol/include/subtopics/system.h
         src/protocol/include/subtopics/power.h
         src/protocol/include/subtopics/motor.h
-        src/protocol/include/actions/usb_actions.h
         src/protocol/util/byte.h
     )
 
