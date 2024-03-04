@@ -82,7 +82,7 @@ You'll need something in your main loop that does something to this effect
     }
     ```
 
-    Here's an example for the SAM4E
+Here's an example for the SAM4E
 
     ```
     #include "mech_usb_protocol.h"
