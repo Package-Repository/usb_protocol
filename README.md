@@ -58,13 +58,13 @@ Building will create a dynamic library and install to /usr/local/lib as well as 
 
 To use the protocol, in your main function you'll have to call a setup function
 
-    init_robot_actions
+    init_robot_actions();
 
 Then you can set specific implementations like this
 
     set_robot_actions(MOTORS, MOVE_MOTORS, &MOVE_MOTOR_FUNC); <--You'll have to define MOVE_MOTOR_FUNC
 
-You'll need something in your main loop that does something to this affect
+You'll need something in your main loop that does something to this effect
 
     ```
     for (;;)
@@ -81,6 +81,46 @@ You'll need something in your main loop that does something to this affect
         }   
     }
     ```
+
+    Here's an example for the SAM4E
+
+    ```
+    #include "mech_usb_protocol.h"
+
+    #define USB_PACKET_SIZE_BYTES 32
+    static unsigned char buffer[USB_PACKET_SIZE_BYTES] = {0};
+
+    void enter_loop(void)
+    {
+        for (;;)
+        {
+            const int byte = udi_cdc_getc();
+            if (byte == INIT_BYTE)
+            {
+                const unsigned char meta_flags_byte = udi_cdc_getc();
+                const MetaFlags meta_flags = EXTRACT_META_FLAGS(meta_flags_byte);
+                const unsigned char msg_size = meta_flags.MSG_SIZE-2;
+                udi_cdc_read_buf(buffer, msg_size);
+                HANDLE_MESSAGE(buffer, msg_size);
+            }   
+            CLEAR_BUFFER(buffer, USB_PACKET_SIZE_BYTES);
+        }
+    }
+
+    void set_robot_actions()
+    {
+        set_robot_action(MOTORS, MOTOR_MOVE, &MOTOR_MOVE_F);
+    }
+
+    int main(void) 
+    {
+        init_robot_actions();
+        set_robot_actions();
+        usb_setup();
+        enter_loop();
+    }
+    ```
+
 
 ## Maintainers
 
