@@ -13,7 +13,7 @@
 #define EMPTY_FIELD 0x00
 
 void init_robot_actions();
-void set_robot_action(const byte_t topic, const byte_t subtopic, const void (*action)(const byte_t* data));
+void set_robot_action(const byte_t topic, const byte_t subtopic, void (*action)(const byte_t* data));
 
 typedef enum device_topic_t
 {

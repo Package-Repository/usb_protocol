@@ -29,6 +29,8 @@ MetaFlags EXTRACT_META_FLAGS(const byte_t meta_flags);
 
 byte_t COMPOSE_META_FLAGS(const MetaFlags* meta_flags);
 
+byte_t GET_MESSAGE_SIZE(const byte_t meta_flags);
+
 typedef struct DataFlags {
     const byte_t RSVD_0;
     const byte_t RSVD_1;

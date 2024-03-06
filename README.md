@@ -94,9 +94,8 @@ Here's an example for the SAM4E
             const int byte = udi_cdc_getc();
             if (byte == INIT_BYTE)
             {
-                const unsigned char meta_flags_byte = udi_cdc_getc();
-                const MetaFlags meta_flags = EXTRACT_META_FLAGS(meta_flags_byte);
-                const unsigned char msg_size = meta_flags.MSG_SIZE-2;
+                const byte_t meta_flags = udi_cdc_getc();
+                const byte_t msg_size = GET_MESSAGE_SIZE(meta_flags); 
                 udi_cdc_read_buf(buffer, msg_size);
                 HANDLE_MESSAGE(buffer, msg_size);
             }   
