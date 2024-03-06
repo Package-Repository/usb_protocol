@@ -20,7 +20,7 @@ Building will create a dynamic library and install to /usr/local/lib as well as 
 
 ## Example CMake
 
-    include_directories(
+    set(MECH_USB_INCLUDES
         src/utils/include
         src/main/include
         src/protocol/include
@@ -30,13 +30,13 @@ Building will create a dynamic library and install to /usr/local/lib as well as 
         src/protocol/util
     )
 
-    set(USB_PROTOCOL_SOURCES 
+    set(MECH_USB_SOURCES 
         src/protocol/src/parser/usb_parse.c
         src/protocol/src/parser/usb_flags.c
         src/protocol/src/actions/usb_actions.c
     )
 
-    set(USB_PROTOCOL_HEADERS 
+    set(MECH_USB_HEADERS 
         src/protocol/include/mech_usb_protocol.h
         src/protocol/include/parser/usb_parse.h
         src/protocol/include/parser/usb_flags.h
