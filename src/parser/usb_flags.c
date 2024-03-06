@@ -20,6 +20,12 @@ MetaFlags EXTRACT_META_FLAGS(const byte_t meta_flags)
     };
 }
 
+byte_t GET_MESSAGE_SIZE(const byte_t meta_flags)
+{
+    const MetaFlags flags = EXTRACT_META_FLAGS(meta_flags);
+    return flags.MSG_SIZE-2;
+}
+
 byte_t COMPOSE_META_FLAGS(const MetaFlags* meta_flags)
 {
     byte_t flag_byte = 0b00000000;
@@ -29,11 +35,11 @@ byte_t COMPOSE_META_FLAGS(const MetaFlags* meta_flags)
 
 /* TODO - Handle Data Flags */
 DataFlags EXTRACT_DATA_FLAGS(const byte_t data_flags)
-{
+{ 
     return (DataFlags)
     {   .RSVD_0     = 0, 
         .RSVD_1     = 0, 
         .RSVD_2     = 0, 
-        .MSG_TYPE   = 0
+        .MSG_TYPE   = data_flags
     };
 }

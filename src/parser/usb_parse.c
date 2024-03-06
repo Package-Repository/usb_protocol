@@ -17,12 +17,12 @@
  * @brief place appropriate values of message into corresponding field of either small/medium/large _message_t struct
  * @param field - pass in an empty struct of desired message_t and the answers will be "returned" here  
  */
-void extract_fields(const byte_t* message, const int data_size, message_t* fields) 
+void extract_fields(const byte_t* message, const byte_t data_size, message_t* fields) 
 {
-    int parsed_bytes = 0;
-    const int field_sizes[] = {TOPIC_BYTES, SUBTOPIC_BYTES, DATA_FLAG_BYTES, data_size};
+    byte_t parsed_bytes = 0;
+    const byte_t field_sizes[] = {TOPIC_BYTES, SUBTOPIC_BYTES, DATA_FLAG_BYTES, data_size};
     byte_t* field_start = (byte_t*)fields;
-    for (int i = 0; i < LENGTH(field_sizes); i++) {
+    for (byte_t i = 0; i < LENGTH(field_sizes); i++) {
         memcpy(&field_start[parsed_bytes], &message[parsed_bytes], field_sizes[i]);
         parsed_bytes += field_sizes[i];
     }
@@ -32,13 +32,13 @@ void extract_fields(const byte_t* message, const int data_size, message_t* field
  * @brief compose an array value into integer value for comparisons
  * @param field - pass in member of message_t struct here
  */
-int extract_field_value(const byte_t* field, const int field_size)
+byte_t extract_field_value(const byte_t* field, const byte_t field_size)
 {
     #define BYTE_SIZE 8
-    int field_value = 0;
-    for (int i = 0; i < field_size; i++) {
-        const int shift_amount = i * BYTE_SIZE;
-        const int shifted_byte = field[i] << shift_amount;
+    byte_t field_value = 0;
+    for (byte_t i = 0; i < field_size; i++) {
+        const byte_t shift_amount = i * BYTE_SIZE;
+        const byte_t shifted_byte = field[i] << shift_amount;
         field_value |= shifted_byte;
     }
     return field_value;
@@ -50,9 +50,9 @@ int extract_field_value(const byte_t* field, const int field_size)
 MsgFields parse_fields(const byte_t* message, const byte_t data_size)
 {
     message_t fields;       extract_fields(message, data_size, &fields);
-    const int topic =       extract_field_value(fields.topic_id,    TOPIC_BYTES);
-    const int subtopic =    extract_field_value(fields.subtopic_id, SUBTOPIC_BYTES);
-    const int data_flags =  extract_field_value(fields.data_flags,  DATA_FLAG_BYTES);
+    const byte_t topic =       extract_field_value(fields.topic_id,    TOPIC_BYTES);
+    const byte_t subtopic =    extract_field_value(fields.subtopic_id, SUBTOPIC_BYTES);
+    const byte_t data_flags =  extract_field_value(fields.data_flags,  DATA_FLAG_BYTES);
     MsgFields parsed_fields = (MsgFields)
     {
         .topic = topic,

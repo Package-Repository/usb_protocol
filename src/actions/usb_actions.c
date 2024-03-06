@@ -18,8 +18,6 @@ void (*robot_actions[NUM_TOPICS][NUM_SUBTOPICS])(const byte_t* data) = {0};
 /* ********************************************************************************************* */
 /* **************************************** Prototypes ***************************************** */
 void NOP(const byte_t* data);
-void set_robot_actions(void);
-void init_robot_actions(void);
 /* ********************************************************************************************* */
 /* ********************************************************************************************* */
 
@@ -38,9 +36,9 @@ void init_robot_actions(void)
 /* ************************* SET ROBOT ACTIONS USING PUBLIC API ************************* */
 /* ****************************** ************************ ****************************** */
 
-void set_robot_action(const byte_t topic, const byte_t subtopic, const void (*action)(const byte_t* data))
+void set_robot_action(const byte_t topic, const byte_t subtopic, void (*action)(const byte_t* data))
 {
     robot_actions[topic][subtopic] = action;
 }
 
-void NOP(const byte_t* data) {}
+void NOP(const byte_t* data) {(void)data;} // Get passed compiler warning for unused param
