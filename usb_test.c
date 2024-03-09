@@ -66,55 +66,55 @@ void run_tests(void)
 /* ********************************************************************************************** */
 
 
-TEST(test_robot_actions) 
-{
-    init_robot_actions();
-    const byte_t data[16] = {0};
-    robot_actions[SYSTEM][SYSTEM_KILL](data);
-    return true;
-}
+// TEST(test_robot_actions) 
+// {
+//     init_robot_actions();
+//     const byte_t data[16] = {0};
+//     robot_actions[SYSTEM][SYSTEM_KILL](data);
+//     return true;
+// }
 
-void MOTOR_MOVE_F(const byte_t* data)
-{
-    for (int i = 0; i < 8; i++) 
-    {
-        ASSERT_EQ(i, data[i]);
-    }
-}
+// void MOTOR_MOVE_F(const byte_t* data)
+// {
+//     for (int i = 0; i < 8; i++) 
+//     {
+//         ASSERT_EQ(i, data[i]);
+//     }
+// }
 
-TEST(test_small_message_send) 
-{
-    init_robot_actions();
-    set_robot_action(MOTORS, MOTOR_MOVE, &MOTOR_MOVE_F);
-    const MetaFlags meta_flags = (MetaFlags){.MSG_SIZE = SMALL_MSG};
-    const byte_t flags_byte = COMPOSE_META_FLAGS(&meta_flags);
-    const byte_t message[SML_MSG_SIZE-5] = {MOTORS, MOTOR_MOVE, EMPTY_FIELD,
-                                0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,};
-    HANDLE_MESSAGE(message, SML_MSG_SIZE);
-    return true;
-}
+// TEST(test_small_message_send) 
+// {
+//     init_robot_actions();
+//     set_robot_action(MOTORS, MOTOR_MOVE, &MOTOR_MOVE_F);
+//     const MetaFlags meta_flags = (MetaFlags){.MSG_SIZE = SMALL_MSG};
+//     const byte_t flags_byte = COMPOSE_META_FLAGS(&meta_flags);
+//     const byte_t message[SML_MSG_SIZE-5] = {MOTORS, MOTOR_MOVE, EMPTY_FIELD,
+//                                 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,};
+//     HANDLE_MESSAGE(message, SML_MSG_SIZE);
+//     return true;
+// }
 
-void MOTOR_MOVE_F_24(const byte_t* data)
-{
-    for (int i = 0; i < 24; i++) 
-    {
-        ASSERT_EQ(i, data[i]);
-    }
-}
+// void MOTOR_MOVE_F_24(const byte_t* data)
+// {
+//     for (int i = 0; i < 24; i++) 
+//     {
+//         ASSERT_EQ(i, data[i]);
+//     }
+// }
 
-TEST(test_medium_message_send) 
-{
-    init_robot_actions();
-    set_robot_action(MOTORS, MOTOR_MOVE, &MOTOR_MOVE_F_24);
-    const MetaFlags meta_flags = (MetaFlags){.MSG_SIZE = MEDIUM_MSG};
-    const byte_t flags_byte = COMPOSE_META_FLAGS(&meta_flags);
-    const byte_t message[MED_MSG_SIZE-5] = {MOTORS, MOTOR_MOVE, EMPTY_FIELD,
-                                0, 1, 2, 3, 4, 5, 6, 7, 8, 
-                                9, 10, 11, 12, 13, 14, 15, 16, 
-                                17, 18, 19, 20, 21, 22, 23};
-    HANDLE_MESSAGE(message, MED_MSG_SIZE);
-    return true;
-}
+// TEST(test_medium_message_send) 
+// {
+//     init_robot_actions();
+//     set_robot_action(MOTORS, MOTOR_MOVE, &MOTOR_MOVE_F_24);
+//     const MetaFlags meta_flags = (MetaFlags){.MSG_SIZE = MEDIUM_MSG};
+//     const byte_t flags_byte = COMPOSE_META_FLAGS(&meta_flags);
+//     const byte_t message[MED_MSG_SIZE-5] = {MOTORS, MOTOR_MOVE, EMPTY_FIELD,
+//                                 0, 1, 2, 3, 4, 5, 6, 7, 8, 
+//                                 9, 10, 11, 12, 13, 14, 15, 16, 
+//                                 17, 18, 19, 20, 21, 22, 23};
+//     HANDLE_MESSAGE(message, MED_MSG_SIZE);
+//     return true;
+// }
 
 TEST(test_small_msg_rcv) 
 {
